@@ -1,0 +1,218 @@
+# hospital-resource-management
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Structure definition
+struct Patient {
+    int id;
+    char name[50];
+    int age;
+    char disease[50];
+    struct Patient *next;
+};
+
+// Head pointer
+struct Patient *head = NULL;
+
+// Function to create a new patient node
+struct Patient* createPatient() {
+    struct Patient *newNode = (struct Patient*)malloc(sizeof(struct Patient));
+
+    if (newNode == NULL) {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
+
+    printf("Enter Patient ID: ");
+    scanf("%d", &newNode->id);
+
+    printf("Enter Name: ");
+    scanf("%s", newNode->name);
+
+    printf("Enter Age: ");
+    scanf("%d", &newNode->age);
+
+    printf("Enter Disease: ");
+    scanf("%s", newNode->disease);
+
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Add Patient
+void addPatient() {
+    struct Patient *newNode = createPatient();
+
+    if (head == NULL) {
+        head = newNode;
+    } else {
+        struct Patient *temp = head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+
+    printf("✅ Patient added successfully!\n");
+}
+
+// Display Patients
+void displayPatients() {
+    struct Patient *temp = head;
+
+    if (temp == NULL) {
+        printf("No patient records available.\n");
+        return;
+    }
+
+    printf("\n--- Patient Records ---\n");
+    while (temp != NULL) {
+        printf("ID: %d | Name: %s | Age: %d | Disease: %s\n",
+               temp->id, temp->name, temp->age, temp->disease);
+        temp = temp->next;
+    }
+}
+
+// Search Patient
+void searchPatient() {
+    int id, found = 0;
+    printf("Enter Patient ID to search: ");
+    scanf("%d", &id);
+
+    struct Patient *temp = head;
+
+    while (temp != NULL) {
+        if (temp->id == id) {
+            printf("🔍 Patient Found:\n");
+            printf("ID: %d | Name: %s | Age: %d | Disease: %s\n",
+                   temp->id, temp->name, temp->age, temp->disease);
+            found = 1;
+            break;
+        }
+        temp = temp->next;
+    }
+
+    if (!found) {
+        printf("❌ Patient not found.\n");
+    }
+}
+
+// Update Patient
+void updatePatient() {
+    int id, found = 0;
+    printf("Enter Patient ID to update: ");
+    scanf("%d", &id);
+
+    struct Patient *temp = head;
+
+    while (temp != NULL) {
+        if (temp->id == id) {
+            printf("Enter new Name: ");
+            scanf("%s", temp->name);
+
+            printf("Enter new Age: ");
+            scanf("%d", &temp->age);
+
+            printf("Enter new Disease: ");
+            scanf("%s", temp->disease);
+
+            printf("✅ Patient updated successfully!\n");
+            found = 1;
+            break;
+        }
+        temp = temp->next;
+    }
+
+    if (!found) {
+        printf("❌ Patient not found.\n");
+    }
+}
+
+// Delete Patient
+void deletePatient() {
+    int id;
+    printf("Enter Patient ID to delete: ");
+    scanf("%d", &id);
+
+    struct Patient *temp = head;
+    struct Patient *prev = NULL;
+
+    // If head node is to be deleted
+    if (temp != NULL && temp->id == id) {
+        head = temp->next;
+        free(temp);
+        printf("✅ Patient deleted successfully!\n");
+        return;
+    }
+
+    // Search for the node
+    while (temp != NULL && temp->id != id) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    // If not found
+    if (temp == NULL) {
+        printf("❌ Patient not found.\n");
+        return;
+    }
+
+    // Delete node
+    prev->next = temp->next;
+    free(temp);
+    printf("✅ Patient deleted successfully!\n");
+}
+
+// Free all memory before exit
+void freeMemory() {
+    struct Patient *temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+}
+
+// Main function
+int main() {
+    int choice;
+
+    while (1) {
+        printf("\n====== Hospital Resource Management System ======\n");
+        printf("1. Add Patient\n");
+        printf("2. Delete Patient\n");
+        printf("3. Update Patient\n");
+        printf("4. Search Patient\n");
+        printf("5. Display Patients\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                addPatient();
+                break;
+            case 2:
+                deletePatient();
+                break;
+            case 3:
+                updatePatient();
+                break;
+            case 4:
+                searchPatient();
+                break;
+            case 5:
+                displayPatients();
+                break;
+            case 6:
+                freeMemory();
+                printf("Exiting program...\n");
+                exit(0);
+            default:
+                printf("⚠ Invalid choice! Try again.\n");
+        }
+    }
+
+    return 0;
+}
