@@ -7,7 +7,10 @@ Hospital Resource Management System using CRUD Operations with Dynamic Memory Al
 
 
 👥 Team Members
+
 Student 1:P.Uday Kumar
+
+
 Student 2:Hari charan
 
 
