@@ -1,218 +1,121 @@
-# hospital-resource-management
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+🏥 Project Title
 
-// Structure definition
-struct Patient {
-    int id;
-    char name[50];
-    int age;
-    char disease[50];
-    struct Patient *next;
-};
+Hospital Resource Management System using CRUD Operations with Dynamic Memory Allocation in C
 
-// Head pointer
-struct Patient *head = NULL;
 
-// Function to create a new patient node
-struct Patient* createPatient() {
-    struct Patient *newNode = (struct Patient*)malloc(sizeof(struct Patient));
+👥 Team Members
+Student 1:P.Uday Kumar
+Student 2:Hari charan
 
-    if (newNode == NULL) {
-        printf("Memory allocation failed!\n");
-        exit(1);
-    }
 
-    printf("Enter Patient ID: ");
-    scanf("%d", &newNode->id);
 
-    printf("Enter Name: ");
-    scanf("%s", newNode->name);
+📍 Problem Statement
 
-    printf("Enter Age: ");
-    scanf("%d", &newNode->age);
+Managing hospital records manually is inefficient, time-consuming, and prone to errors. Hospitals need a system that can dynamically store, update, retrieve, and delete patient information without memory limitations.
+This project provides a solution using a linked list-based system that efficiently handles patient data through CRUD operations in a menu-driven program.
 
-    printf("Enter Disease: ");
-    scanf("%s", newNode->disease);
 
-    newNode->next = NULL;
-    return newNode;
-}
 
-// Add Patient
-void addPatient() {
-    struct Patient *newNode = createPatient();
 
-    if (head == NULL) {
-        head = newNode;
-    } else {
-        struct Patient *temp = head;
-        while (temp->next != NULL) {
-            temp = temp->next;
-        }
-        temp->next = newNode;
-    }
+🧱 Data Structure Used
 
-    printf("✅ Patient added successfully!\n");
-}
+Singly Linked List
 
-// Display Patients
-void displayPatients() {
-    struct Patient *temp = head;
+Each node represents a patient record containing:
 
-    if (temp == NULL) {
-        printf("No patient records available.\n");
-        return;
-    }
+Patient ID
+Name
+Age
+Disease
+Pointer to next node
 
-    printf("\n--- Patient Records ---\n");
-    while (temp != NULL) {
-        printf("ID: %d | Name: %s | Age: %d | Disease: %s\n",
-               temp->id, temp->name, temp->age, temp->disease);
-        temp = temp->next;
-    }
-}
+Why Linked List?
 
-// Search Patient
-void searchPatient() {
-    int id, found = 0;
-    printf("Enter Patient ID to search: ");
-    scanf("%d", &id);
+Dynamic size (no fixed limit like arrays)
+Efficient insertion and deletion
+Memory allocated at runtime
 
-    struct Patient *temp = head;
 
-    while (temp != NULL) {
-        if (temp->id == id) {
-            printf("🔍 Patient Found:\n");
-            printf("ID: %d | Name: %s | Age: %d | Disease: %s\n",
-                   temp->id, temp->name, temp->age, temp->disease);
-            found = 1;
-            break;
-        }
-        temp = temp->next;
-    }
 
-    if (!found) {
-        printf("❌ Patient not found.\n");
-    }
-}
+⚙️ Algorithm Explanation
+1. Add Patient (Create)
+Step 1: Allocate memory using malloc()
+Step 2: Read patient details
+Step 3: Create a new node
+Step 4: Insert node at the end of the list
+Step 5: Update links
 
-// Update Patient
-void updatePatient() {
-    int id, found = 0;
-    printf("Enter Patient ID to update: ");
-    scanf("%d", &id);
 
-    struct Patient *temp = head;
+2. Display Patients (Read)
+Step 1: Start from head
+Step 2: Traverse until NULL
+Step 3: Print each node’s data
 
-    while (temp != NULL) {
-        if (temp->id == id) {
-            printf("Enter new Name: ");
-            scanf("%s", temp->name);
 
-            printf("Enter new Age: ");
-            scanf("%d", &temp->age);
 
-            printf("Enter new Disease: ");
-            scanf("%s", temp->disease);
+3. Search Patient
+Step 1: Input Patient ID
+Step 2: Traverse list
+Step 3: If ID matches → display record
+Step 4: Else → show “not found”
 
-            printf("✅ Patient updated successfully!\n");
-            found = 1;
-            break;
-        }
-        temp = temp->next;
-    }
 
-    if (!found) {
-        printf("❌ Patient not found.\n");
-    }
-}
+4. Update Patient
+Step 1: Input Patient ID
+Step 2: Traverse list
+Step 3: If found → update details
+Step 4: Else → show “not found”
 
-// Delete Patient
-void deletePatient() {
-    int id;
-    printf("Enter Patient ID to delete: ");
-    scanf("%d", &id);
 
-    struct Patient *temp = head;
-    struct Patient *prev = NULL;
 
-    // If head node is to be deleted
-    if (temp != NULL && temp->id == id) {
-        head = temp->next;
-        free(temp);
-        printf("✅ Patient deleted successfully!\n");
-        return;
-    }
+5. Delete Patient
+Step 1: Input Patient ID
+Step 2: Traverse with previous pointer
+Step 3: Adjust links to remove node
+Step 4: Free memory using free()
 
-    // Search for the node
-    while (temp != NULL && temp->id != id) {
-        prev = temp;
-        temp = temp->next;
-    }
+6. Exit
+Step 1: Free all allocated memory
+Step 2: Terminate program
 
-    // If not found
-    if (temp == NULL) {
-        printf("❌ Patient not found.\n");
-        return;
-    }
 
-    // Delete node
-    prev->next = temp->next;
-    free(temp);
-    printf("✅ Patient deleted successfully!\n");
-}
 
-// Free all memory before exit
-void freeMemory() {
-    struct Patient *temp;
-    while (head != NULL) {
-        temp = head;
-        head = head->next;
-        free(temp);
-    }
-}
 
-// Main function
-int main() {
-    int choice;
+💻 Compilation Instructions
 
-    while (1) {
-        printf("\n====== Hospital Resource Management System ======\n");
-        printf("1. Add Patient\n");
-        printf("2. Delete Patient\n");
-        printf("3. Update Patient\n");
-        printf("4. Search Patient\n");
-        printf("5. Display Patients\n");
-        printf("6. Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
+Using GCC Compiler:
+gcc hospital.c -o hospital
+./hospital
 
-        switch (choice) {
-            case 1:
-                addPatient();
-                break;
-            case 2:
-                deletePatient();
-                break;
-            case 3:
-                updatePatient();
-                break;
-            case 4:
-                searchPatient();
-                break;
-            case 5:
-                displayPatients();
-                break;
-            case 6:
-                freeMemory();
-                printf("Exiting program...\n");
-                exit(0);
-            default:
-                printf("⚠ Invalid choice! Try again.\n");
-        }
-    }
+Steps:
+1.Save the code as hospital.c
+2.Open terminal / command prompt
+3.Compile using gcc
+4.Run the executable file
 
-    return 0;
-}
+
+
+
+📁 Files Used
+hospital.c → Main source code
+
+
+
+⭐ Features
+Menu-driven interface
+Dynamic memory allocation
+Efficient data handling using linked list
+CRUD operations:
+1.Add patient
+2.Delete patient
+3.Update patient
+4.Search patient
+5.Display all patients
+No fixed memory limit
+Easy to use and understand
+
+
+
+✅ Conclusion
+
+The Hospital Resource Management System successfully demonstrates the use of linked lists and dynamic memory allocation in C. It efficiently performs CRUD operations and overcomes the limitations of static data structures. This project provides a strong foundation for real-world applications like hospital databases and management systems.
