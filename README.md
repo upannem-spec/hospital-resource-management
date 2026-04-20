@@ -1,6 +1,9 @@
+
 🏥 Project Title
 
 Hospital Resource Management System using CRUD Operations with Dynamic Memory Allocation in C
+
+
 
 
 👥 Team Members
@@ -9,10 +12,13 @@ Student 2:Hari charan
 
 
 
+
 📍 Problem Statement
 
 Managing hospital records manually is inefficient, time-consuming, and prone to errors. Hospitals need a system that can dynamically store, update, retrieve, and delete patient information without memory limitations.
 This project provides a solution using a linked list-based system that efficiently handles patient data through CRUD operations in a menu-driven program.
+
+
 
 
 
@@ -34,6 +40,8 @@ Why Linked List?
 Dynamic size (no fixed limit like arrays)
 Efficient insertion and deletion
 Memory allocated at runtime
+
+
 
 
 
@@ -81,6 +89,8 @@ Step 2: Terminate program
 
 
 
+
+
 💻 Compilation Instructions
 
 Using GCC Compiler:
@@ -94,10 +104,24 @@ Steps:
 4.Run the executable file
 
 
+<img width="639" height="347" alt="Screenshot 2026-04-20 120350" src="https://github.com/user-attachments/assets/7f2da774-36c8-4aee-a4f2-82f9134cb378" />
+<img width="608" height="353" alt="Screenshot 2026-04-20 120401" src="https://github.com/user-attachments/assets/39309ffb-b2ed-4e43-9307-11c9e01654a3" />
+<img width="638" height="289" alt="Screenshot 2026-04-20 120446" src="https://github.com/user-attachments/assets/9c5a376c-a9d7-4d0b-ae8f-b6b0c698e02c" />
+<img width="638" height="369" alt="Screenshot 2026-04-20 120454" src="https://github.com/user-attachments/assets/d13b5b96-4617-4f3e-803b-b9a05be354f8" />
+<img width="633" height="325" alt="Screenshot 2026-04-20 120503" src="https://github.com/user-attachments/assets/6ef8cb7d-1e31-4314-9fa6-39e53b889aeb" />
+<img width="659" height="323" alt="Screenshot 2026-04-20 120512" src="https://github.com/user-attachments/assets/e5b97d08-a406-472e-9961-1eb8dd51ca30" />
+<img width="631" height="249" alt="Screenshot 2026-04-20 120521" src="https://github.com/user-attachments/assets/2fcfc755-f288-4ac8-b27f-1369134a0519" />
+
+
+
+
+
 
 
 📁 Files Used
 hospital.c → Main source code
+
+
 
 
 
@@ -113,6 +137,8 @@ CRUD operations:
 5.Display all patients
 No fixed memory limit
 Easy to use and understand
+
+
 
 
 
